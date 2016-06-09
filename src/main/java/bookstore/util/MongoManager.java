@@ -14,12 +14,16 @@ import java.util.Arrays;
 public class MongoManager {
     private String DBAddress;
     private String DBName;
+    private static MongoDatabase db;
 
     public MongoDatabase getMongoDatabase() {
-        MongoClientURI mongoClientURI = new MongoClientURI(DBAddress);
-        MongoClient mongoClient = new MongoClient(mongoClientURI);
-        MongoDatabase db = mongoClient.getDatabase(DBName);
-
+        if(db == null) {
+            MongoClientURI mongoClientURI = new MongoClientURI(DBAddress);
+            MongoClient mongoClient = new MongoClient(mongoClientURI);
+            db = mongoClient.getDatabase(DBName);
+//            System.out.println(db);
+        }
+//        System.out.println(db);
         return db;
     }
 

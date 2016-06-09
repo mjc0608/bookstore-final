@@ -14,7 +14,7 @@
 
 	<bean id="mongoManager" class="bookstore.util.MongoManager">
 		<property name="DBAddress">
-			<value>localhost</value>
+			<value>mongodb://localhost</value>
 		</property>
 		<property name="DBName">
 			<value>bookstore</value>

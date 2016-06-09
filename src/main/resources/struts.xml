@@ -5,7 +5,8 @@
 
 <struts>
 
-	<constant name="struts.devMode" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.multipart.saveDir" value="temp"/>
 
 	<package name="bookstore" extends="struts-default,json-default">
 
@@ -185,6 +186,20 @@
                 <param name="root">book</param>
             </result>
         </action>
+
+		<action name="img" class="bookstore.action.ImageAction" method="execute">
+			<result name="success" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">imageStream</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+		
+		<action name="upload" class="bookstore.action.UploadTestAction" method="execute">
+			<result name="success">success.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
 
 
 

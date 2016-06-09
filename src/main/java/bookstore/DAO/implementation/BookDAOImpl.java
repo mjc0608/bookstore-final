@@ -3,7 +3,13 @@ package bookstore.DAO.implementation;
 import bookstore.entity.Book;
 import bookstore.DAO.BookDAO;
 import bookstore.util.HibernateUtil;
+import bookstore.util.MongoManager;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 import org.hibernate.Session;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
 

@@ -22,11 +22,9 @@
 
 <body>
 
-<s:form action="upload" theme="simple" enctype="multipart/form-data">
-    <table align="center" width="50%" border="1">
+<s:form action="upload" theme="simple" enctype="multipart/form-data" method="POST">
         <s:file name="file"></s:file>
         <s:submit value=" submit "></s:submit>
-        <s:reset value=" reset "></s:reset>
-    </table>
+</s:form>
 </body>
 </html>

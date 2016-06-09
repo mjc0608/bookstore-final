@@ -1,5 +1,7 @@
 package bookstore.entity;
 
+import java.io.File;
+
 /**
  * Created by Jachin on 5/4/16.
  */
@@ -10,6 +12,7 @@ public class Book {
     private String photoUrl;
     private String category;
     private long price;
+    private File image;
 
     public Book() {
 
@@ -61,5 +64,13 @@ public class Book {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public File getImage() {
+        return image;
+    }
+
+    public void setImage(File image) {
+        this.image = image;
     }
 }

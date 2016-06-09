@@ -55,6 +55,11 @@
 					</div>
 					<div class="panel-body">
 						<div class="col-md-12">
+							<input type="file" name="book.image" value="" id="upload_file">
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="col-md-12">
 							<textarea class="form-control" name="book.description" rows="10" placeholder="Description of the Book" style="resize:vertical"></textarea>
 						</div>
 					</div>
