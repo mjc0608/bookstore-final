@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="bookstore.entity">
+
+    <class name="Book" table="BOOKS">
+        <id name="id" column="BOOK_ID">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="NAME"/>
+        <property name="description" column="DESCRIPTION" type="text"/>
+        <property name="photoUrl" column="PHOTOURL"/>
+        <property name="category" column="CATEGORY"/>
+        <property name="price" column="PRICE"/>
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="false" />
+
+	<package name="bookstore" extends="struts-default,json-default">
+
+		<default-action-ref name="index" />
+
+		<action name="index" class="bookstore.action.BookAction" method="query">
+			<result name="success">/WEB-INF/index.jsp</result>
+			<result name="input">/WEB-INF/index.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="login" class="bookstore.action.UserAction" method="login">
+			<result name="success" type="redirectAction">index</result>
+			<result name="input">/WEB-INF/login.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="logout" class="bookstore.action.UserAction" method="logout">
+			<result type="redirectAction">index</result>
+		</action>
+
+		<action name="register" class="bookstore.action.RegisterAction" method="execute">
+			<result name="input">/WEB-INF/register.jsp</result>
+			<result name="success" type="redirectAction">index</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="cart" class="bookstore.action.CartAction" method="query">
+			<result name="success">/WEB-INF/cart.jsp</result>
+			<result name="input">/WEB-INF/cart.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="addcart" class="bookstore.action.CartAction" method="add">
+			<result type="redirectAction">index</result>
+		</action>
+
+		<action name="removecart" class="bookstore.action.CartAction" method="remove">
+			<result type="redirectAction">cart</result>
+		</action>
+
+		<action name="modifycart" class="bookstore.action.CartAction" method="modify">
+			<result type="redirectAction" name="success">cart</result>
+			<result type="redirectAction" name="input">cart</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="submitcart" class="bookstore.action.CartAction" method="submit">
+			<result type="redirectAction" name="success">index</result>
+			<result type="redirectAction" name="intpu">index</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="book" class="bookstore.action.BookAction" method="info">
+			<result name="success">/WEB-INF/book.jsp</result>
+			<result name="input">/WEB-INF/book.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="userinfo" class="bookstore.action.UserAction" method="info">
+			<result name="success">/WEB-INF/useradmin.jsp</result>
+			<result name="input">/WEB-INF/useradmin.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="users" class="bookstore.action.UserAction" method="query">
+			<result name="success">/WEB-INF/users.jsp</result>
+			<result name="input">/WEB-INF/users.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="adduser" class="bookstore.action.UserAction" method="add">
+			<result type="redirectAction">users</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="modifyuser" class="bookstore.action.UserAction" method="modify">
+			<result type="redirectAction">users</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="removeuser" class="bookstore.action.UserAction" method="remove">
+			<result type="redirectAction">users</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="books" class="bookstore.action.BookAction" method="query">
+			<result name="success">/WEB-INF/books.jsp</result>
+			<result name="input">/WEB-INF/books.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="bookinfo" class="bookstore.action.BookAction" method="info">
+			<result name="success">/WEB-INF/bookadmin.jsp</result>
+			<result name="input">/WEB-INF/bookadmin.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="modifybook" class="bookstore.action.BookAction" method="modify">
+			<result type="redirectAction">books</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="addbook" class="bookstore.action.BookAction" method="add">
+			<result type="redirectAction">books</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="removebook" class="bookstore.action.BookAction" method="remove">
+			<result type="redirectAction">books</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="orders" class="bookstore.action.OrderAction" method="query">
+			<result name="success">/WEB-INF/orders.jsp</result>
+			<result name="input">/WEB-INF/orders.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="orderinfo" class="bookstore.action.OrderAction" method="info">
+			<result name="success">/WEB-INF/orderadmin.jsp</result>
+			<result name="input">/WEB-INF/orderadmin.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="addorder" class="bookstore.action.OrderAction" method="add">
+			<result type="redirectAction">orders</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="removeorder" class="bookstore.action.OrderAction" method="remove">
+			<result type="redirectAction">orders</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="addorderitem" class="bookstore.action.OrderItemAction" method="add">
+			<result type="redirectAction">orders</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="removeorderitem" class="bookstore.action.OrderItemAction" method="remove">
+			<result type="redirectAction">orders</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="modifyorderitem" class="bookstore.action.OrderItemAction" method="modify">
+			<result type="redirectAction">orders</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="myorders" class="bookstore.action.QueryMyOrderAction" method="execute">
+			<result name="success">/WEB-INF/myorders.jsp</result>
+			<result name="input">/WEB-INF/myorders.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="myorder" class="bookstore.action.MyOrderInfoAction" method="execute">
+			<result name="success">/WEB-INF/myorder.jsp</result>
+			<result name="input">/WEB-INF/myorder.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+		<action name="analysis" class="bookstore.action.admin.AnalysisAction" method="execute">
+			<result name="success">/WEB-INF/analysis.jsp</result>
+			<result name="input">/WEB-INF/analysis.jsp</result>
+			<result name="error" type="redirectAction">index</result>
+		</action>
+
+        <action name="search" class="bookstore.action.BookAction" method="search">
+            <result name="success">/WEB-INF/index.jsp</result>
+            <result name="input">/WEB-INF/index.jsp</result>
+            <result name="error" type="redirectAction">index</result>
+        </action>
+        
+        <action name="bookinfojson" class="bookstore.action.BookAction" method="infoJSON">
+            <result type="json">
+                <param name="root">book</param>
+            </result>
+        </action>
+
+
+
+	</package>
+
+</struts>

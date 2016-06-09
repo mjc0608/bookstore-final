@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="bookstore.entity">
+
+    <class name="User" table="USERS">
+        <id name="id" column="USER_ID">
+            <generator class="native"/>
+        </id>
+        <property name="username" column="USERNAME"/>
+        <property name="password" column="PASSWORD"/>
+        <property name="email" column="EMAIL"/>
+        <property name="address" column="ADDRESS"/>
+        <property name="admin" column="ADMIN" type="boolean"/>
+        <!--<set name="orders" inverse="true" lazy="false">-->
+            <!--<key column="USER_ID"/>-->
+            <!--<one-to-many class="Order"/>-->
+        <!--</set>-->
+    </class>
+
+</hibernate-mapping>
+
