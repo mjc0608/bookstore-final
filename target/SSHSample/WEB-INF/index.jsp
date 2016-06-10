@@ -20,7 +20,7 @@
 			<input type="number" class="form-control" name="quantity" placeholder="Quantity">
 			<input type="hidden" name="bookID" id="book-id">
               <span class="input-group-btn">
-                <submit class="btn btn-default btn-primary" type="submit">Add to Cart</submit>
+                <input class="btn btn-default btn-primary" type="submit">Add to Cart</input>
               </span>
 		</div>
 	</form>
@@ -43,7 +43,7 @@
 				<div class="thumbnail">
 					<div>
 						<a href="javascript:show_large_img(<s:property value="id"/>)">
-							<img id="img-<s:property value="id"/>" style="padding-top: 5px" class="carousel-inner img-responsive" src="<s:property value="photoUrl"/>" alt="<s:property value="name"/>">
+							<img id="img-<s:property value="id"/>" style="padding-top: 5px" class="carousel-inner img-responsive" src="/img?id=<s:property value="imageID"/>" alt="<s:property value="name"/>">
 						</a>
 					</div>
 					<div class="caption">

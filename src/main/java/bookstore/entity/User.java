@@ -10,8 +10,8 @@ public class User
     private String email;
     private String password;
     private String address;
-//    private Set<Order> orders = new HashSet<Order>();
     private boolean admin;
+    private String imageID;
 
     public User() {
         admin=false;
@@ -71,6 +71,14 @@ public class User
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public String getImageID() {
+        return imageID;
+    }
+
+    public void setImageID(String imageID) {
+        this.imageID = imageID;
     }
 
     public String toString()

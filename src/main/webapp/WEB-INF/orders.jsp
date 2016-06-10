@@ -13,23 +13,28 @@
 
 				<div class="panel-heading">
 					<label class="col-md-1">ID</label>
-					<label class="col-md-1">UID</label>
+					<%--<label class="col-md-1">UID</label>--%>
 					<label class="col-md-2">User Name</label>
-					<label class="col-md-2">Email</label>
+					<label class="col-md-2">Time</label>
 					<label class="col-md-3">Address</label>
 					<label class="col-md-1">Book</label>
 					<label class="col-md-1">Price/$</label>
+					<label class="col-md-1">Status</label>
 					<br/>
 				</div>
 				<s:iterator value="orders" id="order">
 					<div class="panel-body">
 						<div class="col-md-1"><s:property value="#order.id" /></div>
-						<div class="col-md-1"><s:property value="#order.user.id" /></div>
+						<%--<div class="col-md-1"><s:property value="#order.user.id" /></div>--%>
 						<div class="col-md-2"><s:property value="#order.user.username" /></div>
 						<div class="col-md-2"><s:property value="#order.time.getTime()" /></div>
 						<div class="col-md-3"><s:property value="#order.user.address" /></div>
 						<div class="col-md-1"><s:property value="#order.bookNumber" /></div>
-						<div class="col-md-1"><s:property value="#order.totalMoney" /></div>
+						<div class="col-md-1"><fmt:formatNumber pattern="#0.00"><s:property value="#order.totalMoney" /></fmt:formatNumber></div>
+						<div class="col-md-1">
+							<s:if test="#order.getStatus()==0">unfinished</s:if>
+							<s:else>finished</s:else>
+						</div>
 						<div class="col-md-1"><a href="/orderinfo?id=<s:property value="#order.id" />"><input type="button" class="btn btn-primary btn-xs show-detail" value="Detail"></a></div>
 						<br/>
 					</div>

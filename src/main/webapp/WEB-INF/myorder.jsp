@@ -22,7 +22,7 @@
                         <div class="col-md-3"><s:property value="#item.book.name" /></div>
                         <div class="col-md-2"><s:property value="#item.book.price" /></div>
                         <div class="col-md-2"><s:property value="#item.quantity" /></div>
-                        <div class="col-md-2"><s:property value="#item.quantity*#item.book.price" /></div>
+                        <div class="col-md-2"><fmt:formatNumber pattern="#0.00"><s:property value="#item.quantity*#item.book.price" /></fmt:formatNumber></div>
                         <br/>
                     </div>
                 </s:iterator>

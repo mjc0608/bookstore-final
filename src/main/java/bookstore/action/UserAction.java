@@ -1,9 +1,9 @@
 package bookstore.action;
 
-import bookstore.DAO.UserDAO;
-import bookstore.DAO.implementation.UserDAOImpl;
+import bookstore.service.UserService;
+import bookstore.service.implementation.UserServiceImpl;
 import bookstore.entity.User;
-import bookstore.util.AdminUtil;
+import bookstore.util.UserUtil;
 import com.opensymphony.xwork2.ActionSupport;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Jachin on 6/9/16.
  */
 public class UserAction extends ActionSupport {
-    private UserDAO userService = new UserDAOImpl();
+    private UserService userService;
     private User user;
     private List<User> users;
     private long id=-1;
@@ -20,7 +20,7 @@ public class UserAction extends ActionSupport {
     private String password;
 
     public String add() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
         else if (isValidUser(user)) {
@@ -35,7 +35,7 @@ public class UserAction extends ActionSupport {
     }
 
     public String modify() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
         else if (isValidUser(user)) {
@@ -50,7 +50,7 @@ public class UserAction extends ActionSupport {
     }
 
     public String remove() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
         else if (id<0) {
@@ -65,7 +65,7 @@ public class UserAction extends ActionSupport {
     }
 
     public String query() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
 
@@ -74,16 +74,16 @@ public class UserAction extends ActionSupport {
     }
 
     public String info() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin() && UserUtil.getCurrentUser().getId()!=id) {
             return ERROR;
         }
 
         user = userService.getUserById(id);
         if (isValidUser(user)) {
-            return ERROR;
+            return SUCCESS;
         }
         else {
-            return SUCCESS;
+            return ERROR;
         }
     }
 
@@ -105,6 +105,27 @@ public class UserAction extends ActionSupport {
         }
     }
 
+    public String myInfo() {
+        if (!UserUtil.isLogin()) {
+            return ERROR;
+        }
+
+        user = UserUtil.getCurrentUser();
+        return SUCCESS;
+    }
+
+    public String register() {
+        if (!isValidUser(user)) {
+            return ERROR;
+        }
+        if (userService.register(user)) {
+            return SUCCESS;
+        }
+        else {
+            return ERROR;
+        }
+    }
+
     public long getId() {
         return id;
     }
@@ -117,7 +138,7 @@ public class UserAction extends ActionSupport {
         return user;
     }
 
-    public UserDAO getUserService() {
+    public UserService getUserService() {
         return userService;
     }
 
@@ -141,7 +162,7 @@ public class UserAction extends ActionSupport {
         this.users = users;
     }
 
-    public void setUserService(UserDAO userService) {
+    public void setUserService(UserService userService) {
         this.userService = userService;
     }
 

@@ -10,6 +10,12 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-md-10 col-md-offset-1" id="graph-limit"></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
         <div class="col-md-10 col-md-offset-1" id="graph-day"></div>
     </div>
 </div>
@@ -27,60 +33,118 @@
 </div>
 
 
-<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
-<script>
-    $(function () {
-        $('#graph-day').highcharts({
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: 'Last Month'
-            },
-            xAxis: {
-                categories:[ <s:iterator value="day" id="d">'<s:property value="key.substring(5,10)"/>',</s:iterator> ]
-            },
-            yAxis: [
-                {
-                    title: {
-                        text: 'Income($)'
+<script src="/statics/js/highcharts.js"></script>
+
+<s:if test="ifRange==false">
+    <script>
+        $(function () {
+            $('#graph-day').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Last Month'
+                },
+                xAxis: {
+                    categories:[ <s:iterator value="day" id="d">'<s:property value="key.substring(5,10)"/>',</s:iterator> ]
+                },
+                yAxis: [
+                    {
+                        title: {
+                            text: 'Income($)'
+                        }
+                    },
+                    {
+                        title: {
+                            text: "Sales"
+                        },
+                        opposite: true
+                    }],
+                tooltip: {
+                    enabled: true,
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
                     }
                 },
-                {
-                    title: {
-                        text: "Sales"
-                    },
-                    opposite: true
+                series: [{
+                    name: 'Income',
+                    data: [ <s:iterator value="day" id="d"><s:property value="value.money"/>,</s:iterator> ],
+                    yAxis:0
+                }, {
+                    name: 'Sales',
+                    data: [ <s:iterator value="day" id="d"><s:property value="value.quantity"/>,</s:iterator> ],
+                    yAxis:1
                 }],
-            tooltip: {
-                enabled: true,
-            },
-            plotOptions: {
-                line: {
-                    dataLabels: {
-                        enabled: true
-                    },
-                    enableMouseTracking: false
+                credits: {
+                    enabled:false
+                },
+                exporting: {
+                    enabled:false
                 }
-            },
-            series: [{
-                name: 'Income',
-                data: [ <s:iterator value="day" id="d"><s:property value="value.money"/>,</s:iterator> ],
-                yAxis:0
-            }, {
-                name: 'Sales',
-                data: [ <s:iterator value="day" id="d"><s:property value="value.quantity"/>,</s:iterator> ],
-                yAxis:1
-            }],
-            credits: {
-                enabled:false
-            },
-            exporting: {
-                enabled:false
-            }
+            });
         });
-    });
-</script>
+    </script>
+</s:if>
+<s:else>
+    <script>
+        $(function () {
+            $('#graph-limit').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'In Range'
+                },
+                xAxis: {
+                    categories:[ <s:iterator value="limit" id="d">'<s:property value="key"/>',</s:iterator> ]
+                },
+                yAxis: [
+                    {
+                        title: {
+                            text: 'Income($)'
+                        }
+                    },
+                    {
+                        title: {
+                            text: "Sales"
+                        },
+                        opposite: true
+                    }],
+                tooltip: {
+                    enabled: true,
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'Income',
+                    data: [ <s:iterator value="limit" id="d"><s:property value="value.money"/>,</s:iterator> ],
+                    yAxis:0
+                }, {
+                    name: 'Sales',
+                    data: [ <s:iterator value="limit" id="d"><s:property value="value.quantity"/>,</s:iterator> ],
+                    yAxis:1
+                }],
+                credits: {
+                    enabled:false
+                },
+                exporting: {
+                    enabled:false
+                }
+            });
+        });
+    </script>
+</s:else>
 <script>
     $(function () {
         $('#graph-month').highcharts({

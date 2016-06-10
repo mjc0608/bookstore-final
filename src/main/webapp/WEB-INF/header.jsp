@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="bookstore.entity.User" %>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,7 +76,7 @@
         <div>
             <form class="navbar-form col-md-4" method="GET" action="/search">
                 <div class="input-group">
-                    <input name="keyword" type="text" class="form-control" placeholder="Search for...">
+                    <input name="keyword" type="text" class="form-control" placeholder="Search Book">
               <span class="input-group-btn">
                 <submit class="btn btn-default" type="submit">Search</submit>
               </span>
@@ -104,13 +105,16 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="/cart">Cart</a></li>
-                                <li><a href="/myorders">My Orders</a></li>
-                                <li><a href="/books">Books</a></li>
-                                <li><a href="/users">Users</a></li>
-                                <li><a href="/orders">Orders</a></li>
-                                <li><a href="/analysis">Analysis</a> </li>
-                                <li><a href="/logout">Logout</a></li>
+                                <li role="presentation"><a href="/cart">Cart</a></li>
+                                <li role="presentation"><a href="/myorders">My Orders</a></li>
+                                <li role="presentation"><a href="/info">My Info</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a href="/books">Books</a></li>
+                                <li role="presentation"><a href="/users">Users</a></li>
+                                <li role="presentation"><a href="/orders">Orders</a></li>
+                                <li role="presentation"><a href="/analysis">Analysis</a> </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a href="/logout">Logout</a></li>
                             </ul>
                         </li>
                 <%
@@ -124,6 +128,8 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="/cart">Cart</a></li>
                                 <li><a href="/myorders">My Orders</a></li>
+                                <li><a href="/info">My Info</a></li>
+                                <li role="presentation" class="divider"></li>
                                 <li><a href="/logout">Logout</a></li>
                             </ul>
                         </li>

@@ -23,7 +23,7 @@
 						<div class="col-md-2"><s:property value="#order.id" /></div>
 						<div class="col-md-4"><s:property value="#order.time.getTime().toString()" /></div>
 						<div class="col-md-2"><s:property value="#order.bookNumber" /></div>
-						<div class="col-md-2"><s:property value="#order.totalMoney" /></div>
+						<div class="col-md-2"><fmt:formatNumber pattern="#0.00"><s:property value="#order.totalMoney" /></fmt:formatNumber></div>
 						<div class="col-md-1 col-md-offset-1"><a href="/myorder?id=<s:property value="#order.id" />"><input type="button" class="btn btn-primary btn-xs show-detail" value="Detail"></a></div>
 						<br/>
 					</div>

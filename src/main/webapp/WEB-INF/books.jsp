@@ -35,7 +35,7 @@
 					<br/>
 				</div>
 
-				<form action="/addbook" method="POST" accept-charset="UTF-8">
+				<form action="/addbook" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
 					<br/>
 					<div class="panel-body">
 						<div class="col-md-4">
@@ -49,13 +49,13 @@
 						</div>
 					</div>
 					<div class="panel-body">
-						<div class="col-md-12">
-							<input type="text" name="book.photoUrl" class="form-control" placeholder="Photo URL of the Book">
-						</div>
-					</div>
-					<div class="panel-body">
-						<div class="col-md-12">
-							<input type="file" name="book.image" value="" id="upload_file">
+						<div class="row">
+							<div class="col-md-2">
+								<p>Upload Image:</p>
+							</div>
+							<div class="col-md-3">
+								<input type="file" name="book.image" id="upload_file">
+							</div>
 						</div>
 					</div>
 					<div class="panel-body">

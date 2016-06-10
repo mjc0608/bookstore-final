@@ -39,6 +39,12 @@
           <element id="library" level="project" name="Maven: org.apache.struts:struts2-json-plugin:2.3.16.1" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.1" />
           <element id="library" level="project" name="Maven: org.mongodb:mongo-java-driver:3.2.2" />
+          <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
+          <element id="library" level="project" name="Maven: taglibs:standard:1.1.2" />
+          <element id="library" level="project" name="Maven: javax.servlet.jsp.jstl:jstl-api:1.2" />
+          <element id="library" level="project" name="Maven: javax.servlet.jsp:jsp-api:2.1" />
+          <element id="library" level="project" name="Maven: org.apache.struts:struts2-spring-plugin:2.3.16.1" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:3.0.5.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">

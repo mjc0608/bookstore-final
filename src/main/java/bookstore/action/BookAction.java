@@ -1,26 +1,28 @@
 package bookstore.action;
 
-import bookstore.DAO.BookDAO;
-import bookstore.DAO.implementation.BookDAOImpl;
+import bookstore.service.BookService;
+import bookstore.service.implementation.BookServiceImpl;
 import bookstore.entity.Book;
-import bookstore.util.AdminUtil;
+import bookstore.util.UserUtil;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
 
 /**
  * Created by Jachin on 6/9/16.
  */
-public class BookAction extends ActionSupport {
-    private BookDAO bookService = new BookDAOImpl();
+public class BookAction extends ActionSupport{
+    private BookService bookService;
     private Book book;
     private List<Book> books;
     private long id=-1;
     private String keyword;
 
-
     public String add() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
         else if (!isValidBook(book)) {
@@ -35,7 +37,8 @@ public class BookAction extends ActionSupport {
     }
 
     public String modify() {
-        if (!AdminUtil.isAdmin()) {
+        System.out.println(book);
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
         else if (!isValidBook(book)) {
@@ -50,7 +53,7 @@ public class BookAction extends ActionSupport {
     }
 
     public String remove() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
         else if (id<0) {
@@ -70,7 +73,7 @@ public class BookAction extends ActionSupport {
     }
 
     public String info() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
 
@@ -107,7 +110,7 @@ public class BookAction extends ActionSupport {
         return book;
     }
 
-    public BookDAO getBookService() {
+    public BookService getBookService() {
         return bookService;
     }
 
@@ -135,7 +138,7 @@ public class BookAction extends ActionSupport {
         this.books = books;
     }
 
-    public void setBookService(BookDAO bookService) {
+    public void setBookService(BookService bookService) {
         this.bookService = bookService;
     }
 
@@ -156,4 +159,5 @@ public class BookAction extends ActionSupport {
 
         return true;
     }
+
 }

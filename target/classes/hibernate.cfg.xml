@@ -28,10 +28,9 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">validate</property>
 
-        <!--<mapping resource="helloworld/bookstore.bookstore.entityy/User.hbm.xml"/>-->
-        <mapping resource="bookstore/User.hbm.xml"/>
-        <mapping resource="bookstore/Book.hbm.xml"/>
-        <mapping resource="bookstore/Order.hbm.xml"/>
+        <mapping resource="bookstore/entity/User.hbm.xml"/>
+        <mapping resource="bookstore/entity/Book.hbm.xml"/>
+        <mapping resource="bookstore/entity/Order.hbm.xml"/>
 
     </session-factory>
 

@@ -1,10 +1,8 @@
 package bookstore.action;
 
-import bookstore.DAO.ImageDAO;
-import bookstore.DAO.implementation.ImageDAOImpl;
+import bookstore.service.ImageService;
+import bookstore.service.implementation.ImageServiceImpl;
 import com.opensymphony.xwork2.ActionSupport;
-import com.sun.xml.internal.bind.annotation.OverrideAnnotationOf;
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -16,7 +14,7 @@ public class ImageAction extends ActionSupport{
     private String type = "image/jpeg";
     private InputStream imageStream;
     private String id;
-    ImageDAO imageDAO = new ImageDAOImpl();
+    ImageService imageService;
 
     @Override
     public String execute() throws Exception {
@@ -24,7 +22,7 @@ public class ImageAction extends ActionSupport{
             return ERROR;
         }
 
-        byte[] fbytes = imageDAO.getImage(id);
+        byte[] fbytes = imageService.getImage(id);
 
         if (fbytes==null) {
             return ERROR;
@@ -34,8 +32,8 @@ public class ImageAction extends ActionSupport{
         return SUCCESS;
     }
 
-    public ImageDAO getImageDAO() {
-        return imageDAO;
+    public ImageService getImageService() {
+        return imageService;
     }
 
     public InputStream getImageStream() {
@@ -54,8 +52,8 @@ public class ImageAction extends ActionSupport{
         this.id = id;
     }
 
-    public void setImageDAO(ImageDAO imageDAO) {
-        this.imageDAO = imageDAO;
+    public void setImageService(ImageService imageService) {
+        this.imageService = imageService;
     }
 
     public void setImageStream(InputStream imageStream) {

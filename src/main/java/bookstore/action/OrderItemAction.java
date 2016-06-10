@@ -1,21 +1,21 @@
 package bookstore.action;
 
-import bookstore.DAO.OrderItemDAO;
-import bookstore.DAO.implementation.OrderItemDAOImpl;
-import bookstore.util.AdminUtil;
+import bookstore.service.OrderItemService;
+import bookstore.service.implementation.OrderItemServiceImpl;
+import bookstore.util.UserUtil;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * Created by Jachin on 6/9/16.
  */
 public class OrderItemAction extends ActionSupport {
-    OrderItemDAO orderItemService = new OrderItemDAOImpl();
+    OrderItemService orderItemService;
     long orderID=-1;
     long bookID=-1;
     long quantity=-1;
 
     public String add() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
         else if (!isValidOrderItem(orderID, bookID)) {
@@ -30,7 +30,7 @@ public class OrderItemAction extends ActionSupport {
     }
 
     public String modify() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
         else if (!isValidOrderItem(orderID, bookID)) {
@@ -45,7 +45,7 @@ public class OrderItemAction extends ActionSupport {
     }
 
     public String remove() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
         else if (orderItemService.removeOrderItem(orderID, bookID)) {
@@ -68,7 +68,7 @@ public class OrderItemAction extends ActionSupport {
         return quantity;
     }
 
-    public OrderItemDAO getOrderItemService() {
+    public OrderItemService getOrderItemService() {
         return orderItemService;
     }
 
@@ -80,7 +80,7 @@ public class OrderItemAction extends ActionSupport {
         this.orderID = orderID;
     }
 
-    public void setOrderItemService(OrderItemDAO orderItemService) {
+    public void setOrderItemService(OrderItemService orderItemService) {
         this.orderItemService = orderItemService;
     }
 

@@ -1,9 +1,11 @@
 package bookstore.entity;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TimeZone;
+import java.text.DateFormat;
 
 /**
  * Created by Jachin on 5/4/16.
@@ -15,6 +17,7 @@ public class Order {
     private Calendar time = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
     private double totalMoney;
     private long bookNumber;
+    private int status=0;
 
     public Order() {
 
@@ -53,7 +56,8 @@ public class Order {
     }
 
     public double getTotalMoney() {
-        return totalMoney;
+        BigDecimal b = new BigDecimal(totalMoney);
+        return b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public void setTotalMoney(double totalMoney) {
@@ -66,5 +70,13 @@ public class Order {
 
     public void setBookNumber(long bookNumber) {
         this.bookNumber = bookNumber;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

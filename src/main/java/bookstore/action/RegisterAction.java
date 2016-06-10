@@ -39,9 +39,6 @@ public class RegisterAction extends ActionSupport {
             user.setAdmin(false);
             session.save(user);
 
-
-    //        System.out.println(user.toString());
-
             session.refresh(user);
             session.getTransaction().commit();
 

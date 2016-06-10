@@ -15,15 +15,17 @@ public class MongoManager {
     private String DBAddress;
     private String DBName;
     private static MongoDatabase db;
+    private static MongoClient mongoClient;
 
     public MongoDatabase getMongoDatabase() {
-        if(db == null) {
+        if(mongoClient==null && db==null) {
             MongoClientURI mongoClientURI = new MongoClientURI(DBAddress);
-            MongoClient mongoClient = new MongoClient(mongoClientURI);
+            mongoClient = new MongoClient(mongoClientURI);
             db = mongoClient.getDatabase(DBName);
-//            System.out.println(db);
         }
-//        System.out.println(db);
+        else if (db==null) {
+            db=mongoClient.getDatabase(DBName);
+        }
         return db;
     }
 

@@ -1,12 +1,13 @@
 package bookstore.action;
 
-import bookstore.DAO.implementation.OrderDAOImpl;
+import bookstore.service.implementation.OrderServiceImpl;
 import bookstore.entity.Order;
 import bookstore.entity.OrderItem;
-import bookstore.DAO.OrderDAO;
-import bookstore.util.AdminUtil;
+import bookstore.service.OrderService;
+import bookstore.util.UserUtil;
 import com.opensymphony.xwork2.ActionSupport;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ import java.util.Set;
  * Created by Jachin on 6/9/16.
  */
 public class OrderAction extends ActionSupport {
-    private OrderDAO orderService = new OrderDAOImpl();
+    private OrderService orderService;
     private Order order;
     private Set<OrderItem> items;
     private List<Order> orders;
@@ -22,10 +23,11 @@ public class OrderAction extends ActionSupport {
     private String username;
     private long id=-1;
     private double totalPrice=0;
+    private long status=0;
 
     public String add() {
         String rs;
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
 
@@ -50,7 +52,7 @@ public class OrderAction extends ActionSupport {
     }
 
     public String remove() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
         else if (id<0) {
@@ -65,7 +67,7 @@ public class OrderAction extends ActionSupport {
     }
 
     public String info() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
 
@@ -84,12 +86,56 @@ public class OrderAction extends ActionSupport {
     }
 
     public String query() {
-        if (!AdminUtil.isAdmin()) {
+        if (!UserUtil.isAdmin()) {
             return ERROR;
         }
 
         orders = orderService.getAllOrders();
         return SUCCESS;
+
+    }
+
+    public String setStatus() {
+        if (!UserUtil.isAdmin()) {
+            return ERROR;
+        }
+
+        if (status==0) {
+            if (orderService.unfinishOrder(id)) {
+                return SUCCESS;
+            }
+            else {
+                return ERROR;
+            }
+        }
+        else {
+            if (orderService.finishOrder(id)) {
+                return SUCCESS;
+            }
+            else {
+                return ERROR;
+            }
+        }
+    }
+
+    public String queryMyOrder() {
+        orders = orderService.getMyOrders();
+        return SUCCESS;
+    }
+
+    public String myOrderInfo() {
+        order = orderService.getMyOrder(id);
+        if (!isValidOrder(order)) {
+            return ERROR;
+        }
+        else {
+            items = order.getOrderItems();
+            totalPrice=0;
+            for (OrderItem item: items) {
+                totalPrice+=item.getQuantity()*item.getBook().getPrice();
+            }
+            return SUCCESS;
+        }
 
     }
 
@@ -113,7 +159,7 @@ public class OrderAction extends ActionSupport {
         this.orders = orders;
     }
 
-    public void setOrderService(OrderDAO orderService) {
+    public void setOrderService(OrderService orderService) {
         this.orderService = orderService;
     }
 
@@ -130,7 +176,8 @@ public class OrderAction extends ActionSupport {
     }
 
     public double getTotalPrice() {
-        return totalPrice;
+        BigDecimal b = new BigDecimal(totalPrice);
+        return b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public List<Order> getOrders() {
@@ -149,12 +196,20 @@ public class OrderAction extends ActionSupport {
         return order;
     }
 
-    public OrderDAO getOrderService() {
+    public OrderService getOrderService() {
         return orderService;
     }
 
     public Set<OrderItem> getItems() {
         return items;
+    }
+
+    public long getStatus() {
+        return status;
+    }
+
+    public void setStatus(long status) {
+        this.status = status;
     }
 
     private boolean isValidOrder(Order order) {

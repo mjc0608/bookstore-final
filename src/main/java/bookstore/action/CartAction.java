@@ -5,16 +5,18 @@ import bookstore.entity.OrderItem;
 import bookstore.service.CartService;
 import com.opensymphony.xwork2.ActionSupport;
 
+import java.text.DecimalFormat;
 import java.util.Set;
 
 /**
  * Created by Jachin on 6/9/16.
  */
 public class CartAction extends ActionSupport {
-    CartService cartService = new CartServiceImpl();
+    CartService cartService;
     private long bookID;
     private long quantity;
     private Set<OrderItem> items;
+    private double totalPrice;
 
     public String add() {
         if (cartService.addCart(bookID, quantity)) {
@@ -45,6 +47,10 @@ public class CartAction extends ActionSupport {
 
     public String query() {
         items = cartService.getAllItems();
+        totalPrice=0;
+        for (OrderItem item: items) {
+            totalPrice+=(item.getQuantity()*item.getBook().getPrice());
+        }
         return SUCCESS;
     }
 
@@ -87,5 +93,13 @@ public class CartAction extends ActionSupport {
 
     public void setQuantity(long quantity) {
         this.quantity = quantity;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

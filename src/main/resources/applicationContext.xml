@@ -20,4 +20,47 @@
 			<value>bookstore</value>
 		</property>
 	</bean>
+
+	<bean id="bookAction" class="bookstore.action.BookAction" scope="prototype">
+		<property name="bookService">
+			<ref bean="bookService"/>
+		</property>
+	</bean>
+	<bean id="bookService" class="bookstore.service.implementation.BookServiceImpl"/>
+
+	<bean id="userAction" class="bookstore.action.UserAction" scope="prototype">
+		<property name="userService">
+			<ref bean="userService"/>
+		</property>
+	</bean>
+	<bean id="userService" class="bookstore.service.implementation.UserServiceImpl"/>
+
+	<bean id="orderAction" class="bookstore.action.OrderAction" scope="prototype">
+		<property name="orderService">
+			<ref bean="orderService"/>
+		</property>
+	</bean>
+	<bean id="orderService" class="bookstore.service.implementation.OrderServiceImpl"/>
+
+	<bean id="orderItemAction" class="bookstore.action.OrderItemAction" scope="prototype">
+		<property name="orderItemService">
+			<ref bean="orderItemService"/>
+		</property>
+	</bean>
+	<bean id="orderItemService" class="bookstore.service.implementation.OrderItemServiceImpl"/>
+
+	<bean id="cartAction" class="bookstore.action.CartAction" scope="prototype">
+		<property name="cartService">
+			<ref bean="cartService"/>
+		</property>
+	</bean>
+	<bean id="cartService" class="bookstore.service.implementation.CartServiceImpl"/>
+
+	<bean id="imageAction" class="bookstore.action.ImageAction" scope="prototype">
+		<property name="imageService">
+			<ref bean="imageService"/>
+		</property>
+	</bean>
+	<bean id="imageService" class="bookstore.service.implementation.ImageServiceImpl"/>
+
 </beans>

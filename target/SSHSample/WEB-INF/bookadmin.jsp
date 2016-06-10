@@ -2,6 +2,14 @@
 
 <%@include file="header.jsp"%>
 
+
+<div id="img-reveal" class="reveal-modal bookinfo">
+    <div style="padding: 30px 0px 0px 0px">
+        <img id="large_img" class="carousel-inner img-responsive" src="/img?id=<s:property value="book.imageID"/>">
+    </div>
+    <a class="close-reveal-modal">&#215;</a>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -11,7 +19,7 @@
                     <br/>
                 </div>
 
-                <form action="/modifybook" method="POST">
+                <form action="/modifybook" method="POST" enctype="multipart/form-data">
                     <br/>
                     <div class="panel-body">
                         <div class="col-md-4">
@@ -25,8 +33,17 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-12">
-                            <input type="text" name="book.photoUrl" class="form-control" placeholder="Photo URL of the Book" value="<s:property value="book.photoUrl" />">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <a class="btn btn-default btn-xs" href="javascript:show_large_img(<s:property value="id"/>)">Show Image</a>
+                            </div>
+                            <div class="col-md-2">
+                                <p>Upload Image:</p>
+                            </div>
+                            <input type="hidden" name="book.imageID" value="<s:property value="book.imageID"/>">
+                            <div class="col-md-3">
+                                <input type="file" name="book.image" id="upload_file">
+                            </div>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -49,5 +66,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    function show_large_img(id) {
+        $('#img-reveal').reveal({
+            animation: 'fadeAndPop',                   //fade, fadeAndPop, none
+            animationspeed: 300,                       //how fast animtions are
+            closeonbackgroundclick: true,              //if you click background will modal close?
+            dismissmodalclass: 'close-reveal-modal'    //the class of a button or element that will close an open modal
+        });
+    }
+</script>
 
 <jsp:include page="footer.jsp" />

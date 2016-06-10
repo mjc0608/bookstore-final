@@ -9,9 +9,9 @@ public class Book {
     private long id;
     private String name;
     private String description;
-    private String photoUrl;
     private String category;
     private long price;
+    private String imageID;
     private File image;
 
     public Book() {
@@ -42,13 +42,18 @@ public class Book {
         this.description = description;
     }
 
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
+//    public String getPhotoUrl() {
+//        if (imageID==null || imageID.equals("")) {
+//            return photoUrl;
+//        }
+//        else {
+//            return "/img?id="+imageID;
+//        }
+//    }
 
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
+//    public void setPhotoUrl(String photoUrl) {
+//        this.photoUrl = photoUrl;
+//    }
 
     public double getPrice() {
         return (double)price/100;
@@ -64,6 +69,14 @@ public class Book {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getImageID() {
+        return imageID;
+    }
+
+    public void setImageID(String imageID) {
+        this.imageID = imageID;
     }
 
     public File getImage() {

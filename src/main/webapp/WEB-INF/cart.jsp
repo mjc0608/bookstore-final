@@ -34,7 +34,9 @@
                             <div class="col-md-2">
                                 <input type="number" class="form-control col-md-1" name="quantity" value="<s:property value="#item.quantity" />">
                             </div>
-                            <div class="col-md-1 col-md-offset-1"><s:property value="#item.quantity*#item.book.price" /></div>
+                            <div class="col-md-1 col-md-offset-1">
+                                <fmt:formatNumber pattern="#0.00"><s:property value="#item.quantity*#item.book.price"/></fmt:formatNumber>
+                            </div>
                             <div class="col-md-1">
                                 <input type="button" class="btn btn-primary show-detail" value="Modify" onclick="modifyCart(<s:property value="#item.book.id" />)">
                                 <input type="hidden" name="bookID" value="<s:property value="#item.book.id" />">
@@ -51,7 +53,7 @@
                 </s:iterator>
 
                 <div class="panel-body">
-                    <div class="col-md-3 pull-right text-right"><h4>$<s:property value="totalPrice" /> Totally</h4></div>
+                    <div class="col-md-3 pull-right text-right"><h4>$<fmt:formatNumber pattern="#0.00"><s:property value="totalPrice" /></fmt:formatNumber> Totally</h4></div>
                 </div>
                 <div class="panel-body pull-right">
                     <form action="/submitcart" method="POST">

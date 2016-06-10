@@ -18,7 +18,7 @@
                     <form action="/modifyuser" method="POST">
                         <div class="col-md-1"><s:property value="user.id" /></div>
                         <div class="col-md-2">
-                            <input type="text" class="form-control" name="user.username" value="<s:property value="user.username" />">
+                            <input type="text" class="form-control" name="user.username" disabled value="<s:property value="user.username" />">
                         </div>
                         <div class="col-md-3">
                             <input type="text" class="form-control" name="user.email" value="<s:property value="user.email" />">
