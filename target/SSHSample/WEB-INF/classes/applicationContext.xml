@@ -12,11 +12,14 @@
 		</property>
 	</bean>
 
-	<bean id="mongoManager" class="bookstore.util.MongoManager">
-		<property name="DBAddress">
-			<value>mongodb://localhost</value>
+	<bean id="mongoConfig" class="bookstore.util.MongoConfig">
+		<property name="hostname">
+			<value>localhost</value>
 		</property>
-		<property name="DBName">
+		<property name="port">
+			<value>27017</value>
+		</property>
+		<property name="dbName">
 			<value>bookstore</value>
 		</property>
 	</bean>

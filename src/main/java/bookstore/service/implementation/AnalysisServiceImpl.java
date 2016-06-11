@@ -21,6 +21,8 @@ public class AnalysisServiceImpl implements AnalysisService {
     private Map<String, AnalysisPair> month = new TreeMap<String, AnalysisPair>();
     private Map<String, AnalysisPair> year = new TreeMap<String, AnalysisPair>();
     private Map<String, AnalysisPair> limit = new TreeMap<String, AnalysisPair>();
+    private Map<String, AnalysisPair> limitMonth = new TreeMap<String, AnalysisPair>();
+    private Map<String, AnalysisPair> limitYear = new TreeMap<String, AnalysisPair>();
     List cateList = null;
     private List<Order> orders;
 
@@ -82,7 +84,7 @@ public class AnalysisServiceImpl implements AnalysisService {
         int startMonth = Integer.parseInt(startTime.substring(5, 7));
         int startDay = Integer.parseInt(startTime.substring(8, 10));
         Calendar startCalendar = Calendar.getInstance();
-        startCalendar.set(startYear, startMonth-1, startDay, 23, 59, 59);
+        startCalendar.set(startYear, startMonth-1, startDay, 0, 0, 0);
 
         int endYear = Integer.parseInt(endTime.substring(0, 4));
         int endMonth = Integer.parseInt(endTime.substring(5, 7));
@@ -120,7 +122,7 @@ public class AnalysisServiceImpl implements AnalysisService {
         int startMonth = Integer.parseInt(startTime.substring(5, 7));
         int startDay = Integer.parseInt(startTime.substring(8, 10));
         Calendar startCalendar = Calendar.getInstance();
-        startCalendar.set(startYear, startMonth-1, startDay, 23, 59, 59);
+        startCalendar.set(startYear, startMonth-1, startDay, 0, 0, 0);
 
         int endYear = Integer.parseInt(endTime.substring(0, 4));
         int endMonth = Integer.parseInt(endTime.substring(5, 7));
@@ -277,7 +279,7 @@ public class AnalysisServiceImpl implements AnalysisService {
         return year;
     }
 
-    public Map<String, AnalysisPair> getAnalysisLimit() {
+    public Map<String, AnalysisPair> getAnalysisLimitDay() {
         if (orders==null || orders.isEmpty()) {
             return null;
         }
@@ -300,6 +302,64 @@ public class AnalysisServiceImpl implements AnalysisService {
         }
 
         return limit;
+    }
+
+    public Map<String, AnalysisPair> getAnalysisLimitMonth() {
+        if (orders==null || orders.isEmpty()) {
+            return null;
+        }
+        else if (limitMonth!=null && !limitMonth.isEmpty()) {
+            return year;
+        }
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");
+
+        for (Order order: orders) {
+            AnalysisPair ap = limitMonth.get(df.format(order.getTime().getTime()));
+            if (ap==null) {
+                ap = new AnalysisPair();
+
+                ap.setMoney(order.getTotalMoney());
+                ap.setQuantity(order.getBookNumber());
+
+                limitMonth.put(df.format(order.getTime().getTime()),ap);
+            }
+            else {
+                ap.addMoney(order.getTotalMoney());
+                ap.addQuantity(order.getBookNumber());
+            }
+        }
+
+        return limitMonth;
+    }
+
+    public Map<String, AnalysisPair> getAnalysisLimitYear() {
+        if (orders==null || orders.isEmpty()) {
+            return null;
+        }
+        else if (limitYear!=null && !limitYear.isEmpty()) {
+            return year;
+        }
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy");
+
+        for (Order order: orders) {
+            AnalysisPair ap = limitYear.get(df.format(order.getTime().getTime()));
+            if (ap==null) {
+                ap = new AnalysisPair();
+
+                ap.setMoney(order.getTotalMoney());
+                ap.setQuantity(order.getBookNumber());
+
+                limitYear.put(df.format(order.getTime().getTime()),ap);
+            }
+            else {
+                ap.addMoney(order.getTotalMoney());
+                ap.addQuantity(order.getBookNumber());
+            }
+        }
+
+        return limitYear;
     }
 
     public void print() {

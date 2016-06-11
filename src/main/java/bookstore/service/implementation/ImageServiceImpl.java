@@ -18,10 +18,8 @@ import java.util.UUID;
  */
 public class ImageServiceImpl implements ImageService {
     public byte[] getImage(String imageID) {
-        ApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] {"applicationContext.xml"});
-        MongoManager mongoManager = context.getBean(MongoManager.class);
-        MongoDatabase db = mongoManager.getMongoDatabase();
+
+        MongoDatabase db = MongoManager.getMongoDatabase();
         MongoCollection coll = db.getCollection("image");
 
         Document key = new Document("imageID", imageID);
@@ -39,10 +37,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     public String storeImage(File image) {
-        ApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] {"applicationContext.xml"});
-        MongoManager mongoManager = context.getBean(MongoManager.class);
-        MongoDatabase db = mongoManager.getMongoDatabase();
+        MongoDatabase db = MongoManager.getMongoDatabase();
         if (db==null) return null;
         MongoCollection coll = db.getCollection("image");
         if (coll==null) return null;
@@ -64,10 +59,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     public String storeImage(byte[] fbytes) {
-        ApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] {"applicationContext.xml"});
-        MongoManager mongoManager = context.getBean(MongoManager.class);
-        MongoDatabase db = mongoManager.getMongoDatabase();
+        MongoDatabase db = MongoManager.getMongoDatabase();
         MongoCollection coll = db.getCollection("image");
 
         UUID uuid=UUID.randomUUID();
@@ -88,10 +80,7 @@ public class ImageServiceImpl implements ImageService {
             return true;
         }
 
-        ApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] {"applicationContext.xml"});
-        MongoManager mongoManager = context.getBean(MongoManager.class);
-        MongoDatabase db = mongoManager.getMongoDatabase();
+        MongoDatabase db = MongoManager.getMongoDatabase();
         MongoCollection coll = db.getCollection("image");
 
         Document key = new Document("imageID", imageID);

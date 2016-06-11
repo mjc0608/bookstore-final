@@ -20,22 +20,21 @@ public class AnalysisAction extends ActionSupport {
     private Map<String, AnalysisPair> day = null;
     private Map<String, AnalysisPair> month = null;
     private Map<String, AnalysisPair> year = null;
-    private Map<String, AnalysisPair> limit = null;
     private long userID=-1;
     private boolean ifRange=false;
     private String start;
     private String end;
 
     public String execute() throws Exception {
-//        if (!UserUtil.isAdmin()) {
-//            return ERROR;
-//        }
+        if (!UserUtil.isAdmin()) {
+            return ERROR;
+        }
 
-        if (start!=null || end!=null) {
-            if (start==null) {
+        if ((start!=null && !start.equals("")) || (end!=null && !end.equals(""))) {
+            if (start==null || start.equals("")) {
                 start="1900-01-01";
             }
-            if (end==null) {
+            if (end==null || end.equals("")) {
                 end="2100-01-01";
             }
 
@@ -52,10 +51,9 @@ public class AnalysisAction extends ActionSupport {
             }
 
             category=analysisService.getAnalysisCategory();
-            month=analysisService.getAnalysisMonth();
-            year=analysisService.getAnalysisYear();
-            limit=analysisService.getAnalysisLimit();
-            System.out.println(limit);
+            month=analysisService.getAnalysisLimitMonth();
+            year=analysisService.getAnalysisLimitYear();
+            day=analysisService.getAnalysisLimitDay();
         }
         else {
             ifRange=false;
@@ -106,10 +104,6 @@ public class AnalysisAction extends ActionSupport {
         return userID;
     }
 
-    public Map<String, AnalysisPair> getLimit() {
-        return limit;
-    }
-
     public String getEnd() {
         return end;
     }
@@ -148,10 +142,6 @@ public class AnalysisAction extends ActionSupport {
 
     public void setEnd(String end) {
         this.end = end;
-    }
-
-    public void setLimit(Map<String, AnalysisPair> limit) {
-        this.limit = limit;
     }
 
     public void setIfRange(boolean ifRange) {

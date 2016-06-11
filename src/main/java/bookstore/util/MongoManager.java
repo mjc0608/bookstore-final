@@ -5,6 +5,8 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Arrays;
 
@@ -12,36 +14,20 @@ import java.util.Arrays;
  * Created by Jachin on 6/8/16.
  */
 public class MongoManager {
-    private String DBAddress;
-    private String DBName;
-    private static MongoDatabase db;
-    private static MongoClient mongoClient;
+    private static MongoDatabase db = initMongoDatabase();
 
-    public MongoDatabase getMongoDatabase() {
-        if(mongoClient==null && db==null) {
-            MongoClientURI mongoClientURI = new MongoClientURI(DBAddress);
-            mongoClient = new MongoClient(mongoClientURI);
-            db = mongoClient.getDatabase(DBName);
-        }
-        else if (db==null) {
-            db=mongoClient.getDatabase(DBName);
-        }
+    public static MongoDatabase initMongoDatabase() {
+        ApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[] {"applicationContext.xml"});
+        MongoConfig mongoConfig = context.getBean(MongoConfig.class);
+
+        MongoClient mongoClient = new MongoClient(mongoConfig.getHostname(), mongoConfig.getPort());
+        MongoDatabase db = mongoClient.getDatabase(mongoConfig.getDbName());
         return db;
     }
 
-    public String getDBName() {
-        return DBName;
+    public static MongoDatabase getMongoDatabase() {
+        return db;
     }
 
-    public String getDBAddress() {
-        return DBAddress;
-    }
-
-    public void setDBAddress(String DBAddress) {
-        this.DBAddress = DBAddress;
-    }
-
-    public void setDBName(String DBName) {
-        this.DBName = DBName;
-    }
 }

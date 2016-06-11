@@ -20,7 +20,10 @@ public interface AnalysisService {
     public Map<String, AnalysisPair> getAnalysisDay();
     public Map<String, AnalysisPair> getAnalysisMonth();
     public Map<String, AnalysisPair> getAnalysisYear();
-    public Map<String, AnalysisPair> getAnalysisLimit();
+
+    public Map<String, AnalysisPair> getAnalysisLimitDay();
+    public Map<String, AnalysisPair> getAnalysisLimitMonth();
+    public Map<String, AnalysisPair> getAnalysisLimitYear();
 
     public void print();
 

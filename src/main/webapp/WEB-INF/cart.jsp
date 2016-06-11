@@ -57,7 +57,7 @@
                 </div>
                 <div class="panel-body pull-right">
                     <form action="/submitcart" method="POST">
-                        <input type="submit" class="btn btn-primary show-detail" value="Sumbit Order">
+                        <input type="submit" class="btn btn-primary show-detail" value="Pay">
                     </form>
                 </div>
             </div>
