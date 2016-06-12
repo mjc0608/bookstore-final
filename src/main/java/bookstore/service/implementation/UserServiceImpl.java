@@ -1,18 +1,23 @@
 package bookstore.service.implementation;
 
 import bookstore.entity.User;
+import bookstore.service.ImageService;
 import bookstore.service.UserService;
 import bookstore.util.HibernateUtil;
+import bookstore.util.UserUtil;
+import com.mysql.jdbc.Connection;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.Session;
 
 import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.util.List;
 
 /**
  * Created by Jachin on 6/9/16.
  */
 public class UserServiceImpl implements UserService {
+    ImageService imageService = new ImageServiceImpl();
 
     public boolean addUser(User user) {
         if (user==null) return false;
@@ -29,6 +34,12 @@ public class UserServiceImpl implements UserService {
             if (utest!=null) {
                 session.getTransaction().commit();
                 return false;
+            }
+
+            String imageID=null;
+            if (user.getImage()!=null) {
+                imageID=imageService.storeImage(user.getImage());
+                user.setImageID(imageID);
             }
 
             session.save(user);
@@ -62,12 +73,64 @@ public class UserServiceImpl implements UserService {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try{
+            String newImageID=null;
+            if (user.getImage()!=null) {
+                newImageID = imageService.storeImage(user.getImage());
+                if (newImageID!=null && !newImageID.equals("")) {
+                    imageService.removeImage(user.getImageID());
+                    user.setImageID(newImageID);
+                }
+            }
+
             session.beginTransaction();
 
-            System.out.println(user.toString());
             session.update(user);
             session.getTransaction().commit();
 
+            if (UserUtil.getCurrentUser().getId()==user.getId()) {
+                UserUtil.setCurrentUser(user);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public boolean modifySelf(User user) {
+        if (user==null) return false;
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try{
+            String newImageID=null;
+            boolean imageUpdated=false;
+            if (user.getImage()!=null) {
+                newImageID = imageService.storeImage(user.getImage());
+                if (newImageID!=null && !newImageID.equals("")) {
+                    imageUpdated=true;
+                }
+            }
+
+            session.beginTransaction();
+
+            User solidUser = (User)session.get(User.class, UserUtil.getCurrentUser().getId());
+            solidUser.setAddress(user.getAddress());
+            solidUser.setEmail(user.getEmail());
+            solidUser.setPassword(user.getPassword());
+            if (imageUpdated) {
+                imageService.removeImage(solidUser.getImageID());
+                solidUser.setImageID(newImageID);
+            }
+
+            session.update(solidUser);
+            session.getTransaction().commit();
+
+            user=solidUser;
+            UserUtil.setCurrentUser(solidUser);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -166,6 +229,7 @@ public class UserServiceImpl implements UserService {
     public User self() {
         HttpSession httpSession = ServletActionContext.getRequest().getSession(true);
         User user = (User)httpSession.getAttribute("loginUser");
+
         return user;
     }
 

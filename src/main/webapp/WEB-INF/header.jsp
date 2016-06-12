@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="bookstore.entity.User" %>
+<%@ page import="bookstore.util.UserUtil" %>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -78,7 +79,7 @@
                 <div class="input-group">
                     <input name="keyword" type="text" class="form-control" placeholder="Search Book">
               <span class="input-group-btn">
-                <submit class="btn btn-default" type="submit">Search</submit>
+                <input class="btn btn-default" type="submit">Search</input>
               </span>
                 </div>
             </form>
@@ -89,7 +90,6 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
-
                 <%
                     User user=(User)session.getAttribute("loginUser");
                     if (user==null) {
@@ -99,6 +99,12 @@
                 <%
                     } else if (user.getAdmin()) {
                 %>
+                        <div class="navbar-brand">
+                            <a href="/info">
+                                <img class="img-circle" style="width:24px;height: 24px;"
+                                 src="/img?id=<%= UserUtil.getCurrentUser().getImageID()%>">
+                            </a>
+                        </div>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <%= user.getUsername()%> <span class="caret"></span>
@@ -120,6 +126,12 @@
                 <%
                     } else {
                 %>
+                        <div class="navbar-brand">
+                            <a href="/info">
+                                <img class="img-circle" style="width:24px;height: 24px;"
+                                     src="/img?id=<%= UserUtil.getCurrentUser().getImageID()%>">
+                            </a>
+                        </div>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <%= user.getUsername()%> <span class="caret"></span>

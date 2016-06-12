@@ -27,4 +27,7 @@ public interface AnalysisService {
 
     public void print();
 
+    public double getUserTotalSpent(long userID);
+    public long getUserTotalOrder(long userID);
+
 }

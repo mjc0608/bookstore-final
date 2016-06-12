@@ -1,5 +1,7 @@
 package bookstore.entity;
 
+import java.io.File;
+
 /**
  * Created by Jachin on 5/4/16.
  */
@@ -12,6 +14,7 @@ public class User
     private String address;
     private boolean admin;
     private String imageID;
+    private File image;
 
     public User() {
         admin=false;
@@ -57,13 +60,13 @@ public class User
         this.address = address;
     }
 
-//    public Set<Order> getOrders() {
-//        return orders;
-//    }
-//
-//    public void setOrders(Set<Order> orders) {
-//        this.orders = orders;
-//    }
+    public File getImage() {
+        return image;
+    }
+
+    public void setImage(File image) {
+        this.image = image;
+    }
 
     public boolean getAdmin() {
         return admin;

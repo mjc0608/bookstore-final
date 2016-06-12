@@ -68,7 +68,7 @@ public class BookServiceImpl implements BookService {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try{
             if (book.getImage()!=null) {
-                String imageID= imageService.storeImage(book.getImage());
+                String imageID = imageService.storeImage(book.getImage());
                 if (imageID!=null && !imageID.equals("")) {
                     imageService.removeImage(book.getImageID());
                     book.setImageID(imageID);
@@ -77,7 +77,7 @@ public class BookServiceImpl implements BookService {
 
             session.beginTransaction();
             session.update(book);
-            System.out.println("here2");
+//            System.out.println("here2");
 
             session.getTransaction().commit();
         } catch (Exception e) {

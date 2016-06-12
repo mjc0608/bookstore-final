@@ -20,7 +20,7 @@
 			<input type="number" class="form-control" name="quantity" placeholder="Quantity">
 			<input type="hidden" name="bookID" id="book-id">
               <span class="input-group-btn">
-                <input class="btn btn-default btn-primary" type="submit">Add to Cart</input>
+                <input class="btn btn-default btn-primary" type="submit" value="Add to Cart">Add to Cart</input>
               </span>
 		</div>
 	</form>

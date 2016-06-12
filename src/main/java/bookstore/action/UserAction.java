@@ -1,11 +1,13 @@
 package bookstore.action;
 
+import bookstore.service.AnalysisService;
 import bookstore.service.UserService;
 import bookstore.service.implementation.UserServiceImpl;
 import bookstore.entity.User;
 import bookstore.util.UserUtil;
 import com.opensymphony.xwork2.ActionSupport;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -13,17 +15,21 @@ import java.util.List;
  */
 public class UserAction extends ActionSupport {
     private UserService userService;
+    private AnalysisService analysisService;
     private User user;
     private List<User> users;
     private long id=-1;
     private String username;
     private String password;
+    private File image;
+    private double totalSpent;
+    private long totalOrder;
 
     public String add() {
         if (!UserUtil.isAdmin()) {
             return ERROR;
         }
-        else if (isValidUser(user)) {
+        else if (!isValidUser(user)) {
             return INPUT;
         }
         else if (userService.addUser(user)) {
@@ -35,13 +41,31 @@ public class UserAction extends ActionSupport {
     }
 
     public String modify() {
+        System.out.print("! modify: ");
+        System.out.println(user);
+
         if (!UserUtil.isAdmin()) {
             return ERROR;
         }
-        else if (isValidUser(user)) {
+        else if (!isValidUser(user)) {
             return INPUT;
         }
         else if (userService.modifyUser(user)) {
+                return SUCCESS;
+        }
+        else {
+            return ERROR;
+        }
+    }
+
+    public String modifySelf() {
+        if (!UserUtil.isLogin() || user.getId()!=UserUtil.getCurrentUser().getId()) {
+            return ERROR;
+        }
+        else if (!isValidUser(user)) {
+            return INPUT;
+        }
+        else if (userService.modifySelf(user)) {
             return SUCCESS;
         }
         else {
@@ -80,6 +104,8 @@ public class UserAction extends ActionSupport {
 
         user = userService.getUserById(id);
         if (isValidUser(user)) {
+            totalOrder = analysisService.getUserTotalOrder(id);
+            totalSpent = analysisService.getUserTotalSpent(id);
             return SUCCESS;
         }
         else {
@@ -111,6 +137,8 @@ public class UserAction extends ActionSupport {
         }
 
         user = UserUtil.getCurrentUser();
+        totalOrder = analysisService.getUserTotalOrder(user.getId());
+        totalSpent = analysisService.getUserTotalSpent(user.getId());
         return SUCCESS;
     }
 
@@ -174,7 +202,40 @@ public class UserAction extends ActionSupport {
         this.username = username;
     }
 
+    public File getImage() {
+        return image;
+    }
+
+    public void setImage(File image) {
+        this.image = image;
+    }
+
+    public AnalysisService getAnalysisService() {
+        return analysisService;
+    }
+
+    public void setAnalysisService(AnalysisService analysisService) {
+        this.analysisService = analysisService;
+    }
+
+    public double getTotalSpent() {
+        return totalSpent;
+    }
+
+    public void setTotalOrder(long totalOrder) {
+        this.totalOrder = totalOrder;
+    }
+
+    public long getTotalOrder() {
+        return totalOrder;
+    }
+
+    public void setTotalSpent(double totalSpent) {
+        this.totalSpent = totalSpent;
+    }
+
     private boolean isValidUser(User user) {
+        System.out.println(user.toString());
         if (user==null) {
             return false;
         }

@@ -368,4 +368,32 @@ public class AnalysisServiceImpl implements AnalysisService {
         System.out.print("cate");
         System.out.println(cateList);
     }
+
+    public double getUserTotalSpent(long userID) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Double totalSpent = (Double)session.createSQLQuery("select user_total_spent(:user_id)")
+                .setParameter("user_id", userID)
+                .uniqueResult();
+        session.getTransaction().commit();
+
+        System.out.print(totalSpent);
+
+        return totalSpent;
+    }
+
+    public long getUserTotalOrder(long userID) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Integer totalOrder = (Integer) session.createSQLQuery("select user_order_count(:user_id)")
+                .setParameter("user_id", userID)
+                .uniqueResult();
+        session.getTransaction().commit();
+
+        System.out.print(totalOrder);
+
+        return totalOrder;
+    }
+
+
 }

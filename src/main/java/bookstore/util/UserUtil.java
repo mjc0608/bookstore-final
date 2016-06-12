@@ -20,6 +20,12 @@ public class UserUtil {
         return user;
     }
 
+    public static void setCurrentUser(User user) {
+        HttpSession httpSession = ServletActionContext.getRequest().getSession(true);
+        httpSession.removeAttribute("loginUser");
+        httpSession.setAttribute("loginUser", user);
+    }
+
     public static boolean isLogin() {
         HttpSession httpSession = ServletActionContext.getRequest().getSession(true);
         User user = (User)httpSession.getAttribute("loginUser");

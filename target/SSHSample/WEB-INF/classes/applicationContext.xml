@@ -35,8 +35,18 @@
 		<property name="userService">
 			<ref bean="userService"/>
 		</property>
+		<property name="analysisService">
+			<ref bean="analysisService"/>
+		</property>
 	</bean>
 	<bean id="userService" class="bookstore.service.implementation.UserServiceImpl"/>
+	<bean id="analysisService" class="bookstore.service.implementation.AnalysisServiceImpl"/>
+
+	<bean id="analysisAction" class="bookstore.action.AnalysisAction" scope="prototype">
+		<property name="analysisService">
+			<ref bean="analysisService"/>
+		</property>
+	</bean>
 
 	<bean id="orderAction" class="bookstore.action.OrderAction" scope="prototype">
 		<property name="orderService">

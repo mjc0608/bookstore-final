@@ -15,7 +15,7 @@ import java.util.TreeMap;
  * Created by Jachin on 6/11/16.
  */
 public class AnalysisAction extends ActionSupport {
-    AnalysisService analysisService = new AnalysisServiceImpl();
+    AnalysisService analysisService;
     private Map<String, AnalysisPair> category = null;
     private Map<String, AnalysisPair> day = null;
     private Map<String, AnalysisPair> month = null;

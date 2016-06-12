@@ -13,6 +13,7 @@
         <property name="password" column="PASSWORD"/>
         <property name="email" column="EMAIL"/>
         <property name="address" column="ADDRESS"/>
+        <property name="imageID" column="IMG_ID"/>
         <property name="admin" column="ADMIN" type="boolean"/>
         <!--<set name="orders" inverse="true" lazy="false">-->
             <!--<key column="USER_ID"/>-->

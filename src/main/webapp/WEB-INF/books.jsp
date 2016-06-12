@@ -22,7 +22,10 @@
 				<div class="panel-body">
 					<div class="col-md-2"><s:property value="#book.name" /></div>
 					<div class="col-md-2"><s:property value="#book.category" /></div>
-					<div class="col-md-6"><s:property value="#book.description" /></div>
+					<div class="col-md-6">
+						<s:if test="description.length()>24"><s:property value="description.substring(0,24)" />...</s:if>
+						<s:else><s:property value="description" /></s:else>
+					</div>
 					<div class="col-md-1"><s:property value="#book.price" /></div>
 					<div class="col-md-1"><a href="/bookinfo?id=<s:property value="#book.id" />"><input type="button" class="btn btn-primary btn-xs show-detail" value="Modify"></a></div>
 					<br/>

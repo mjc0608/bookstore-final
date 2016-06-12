@@ -16,13 +16,13 @@
 		<action name="index" class="bookAction" method="query">
 			<result name="success">/WEB-INF/index.jsp</result>
 			<result name="input">/WEB-INF/index.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="login" class="userAction" method="login">
 			<result name="success" type="redirectAction">index</result>
 			<result name="input">/WEB-INF/login.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirectAction">login</result>
 		</action>
 
 		<action name="logout" class="userAction" method="logout">
@@ -31,19 +31,25 @@
 
 		<action name="info" class="userAction" method="myInfo">
 			<result>/WEB-INF/info.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
+		</action>
+
+		<action name="modifyself" class="userAction" method="modifySelf">
+			<result type="redirect">/info</result>
+			<result type="redirect" name="input">/info</result>
+			<result type="redirect" name="error">/error.jsp</result>
 		</action>
 
 		<action name="register" class="userAction" method="register">
 			<result name="input">/WEB-INF/register.jsp</result>
 			<result name="success" type="redirectAction">index</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="cart" class="cartAction" method="query">
 			<result name="success">/WEB-INF/cart.jsp</result>
 			<result name="input">/WEB-INF/cart.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="addcart" class="cartAction" method="add">
@@ -53,57 +59,62 @@
 
 		<action name="removecart" class="cartAction" method="remove">
 			<result type="redirectAction">cart</result>
+			<result type="redirectAction" name="input">cart</result>
+			<result type="redirectAction" name="error">/error.jsp</result>
 		</action>
 
 		<action name="modifycart" class="cartAction" method="modify">
 			<result type="redirectAction" name="success">cart</result>
 			<result type="redirectAction" name="input">cart</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="submitcart" class="cartAction" method="submit">
 			<result type="redirectAction" name="success">index</result>
-			<result type="redirectAction" name="intpu">index</result>
-			<result name="error" type="redirectAction">index</result>
+			<result type="redirectAction" name="input">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="book" class="bookAction" method="info">
 			<result name="success">/WEB-INF/book.jsp</result>
 			<result name="input">/WEB-INF/book.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="userinfo" class="userAction" method="info">
 			<result name="success">/WEB-INF/useradmin.jsp</result>
 			<result name="input">/WEB-INF/useradmin.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="users" class="userAction" method="query">
 			<result name="success">/WEB-INF/users.jsp</result>
 			<result name="input">/WEB-INF/users.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="adduser" class="userAction" method="add">
 			<result type="redirectAction">users</result>
-			<result name="error" type="redirectAction">index</result>
+			<result type="redirect" name="input">/error.jsp</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="modifyuser" class="userAction" method="modify">
-			<result type="redirectAction">users</result>
-			<result name="error" type="redirectAction">index</result>
+			<result type="redirect">/userinfo?id=${user.id}</result>
+			<result type="redirect" name="input">/userinfo?id=${user.id}</result>
+			<result name="error" type="redirect">/error.jsp</result>
+			<result name="self" type="redirectAction">info</result>
 		</action>
 
 		<action name="removeuser" class="userAction" method="remove">
 			<result type="redirectAction">users</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="books" class="bookAction" method="query">
 			<result name="success">/WEB-INF/books.jsp</result>
 			<result name="input">/WEB-INF/books.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="bookinfo" class="bookAction" method="info">
@@ -113,89 +124,85 @@
 		</action>
 
 		<action name="modifybook" class="bookAction" method="modify">
-			<result type="redirectAction">books</result>
-			<result name="error" type="redirectAction">index</result>
+			<result type="redirect">/bookinfo?id=${book.id}</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="addbook" class="bookAction" method="add">
 			<result type="redirectAction">books</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="removebook" class="bookAction" method="remove">
 			<result type="redirectAction">books</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="orders" class="orderAction" method="query">
 			<result name="success">/WEB-INF/orders.jsp</result>
 			<result name="input">/WEB-INF/orders.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="setorderstatus" class="orderAction" method="setStatus">
-			<result type="redirectAction">orders</result>
+			<result type="redirect">/orderinfo?id=${id}</result>
+			<result name="input" type="redirect">/orderinfo?id=${order.id}</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="orderinfo" class="orderAction" method="info">
 			<result name="success">/WEB-INF/orderadmin.jsp</result>
 			<result name="input">/WEB-INF/orderadmin.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="addorder" class="orderAction" method="add">
 			<result type="redirectAction">orders</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="removeorder" class="orderAction" method="remove">
 			<result type="redirectAction">orders</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="addorderitem" class="orderItemAction" method="add">
-			<result type="redirectAction">orders</result>
-			<result name="error" type="redirectAction">index</result>
+			<result type="redirect">/orderinfo?id=${orderID}</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="removeorderitem" class="orderItemAction" method="remove">
-			<result type="redirectAction">orders</result>
-			<result name="error" type="redirectAction">index</result>
+			<result type="redirect">/orderinfo?id=${orderID}</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="modifyorderitem" class="orderItemAction" method="modify">
-			<result type="redirectAction">orders</result>
-			<result name="error" type="redirectAction">index</result>
+			<result type="redirect">/orderinfo?id=${orderID}</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="myorders" class="orderAction" method="queryMyOrder">
 			<result name="success">/WEB-INF/myorders.jsp</result>
 			<result name="input">/WEB-INF/myorders.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
 		<action name="myorder" class="orderAction" method="myOrderInfo">
 			<result name="success">/WEB-INF/myorder.jsp</result>
 			<result name="input">/WEB-INF/myorder.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
-		<action name="analysis" class="bookstore.action.AnalysisAction" method="execute">
+		<action name="analysis" class="analysisService" method="execute">
 			<result name="success">/WEB-INF/analysis.jsp</result>
 			<result name="input">/WEB-INF/analysis.jsp</result>
-			<result name="error" type="redirectAction">index</result>
-		</action>
-
-		<action name="oldanalysis" class="bookstore.action.OldAnalysisAction" method="execute">
-			<result name="success">/WEB-INF/analysis.jsp</result>
-			<result name="input">/WEB-INF/analysis.jsp</result>
-			<result name="error" type="redirectAction">index</result>
+			<result name="error" type="redirect">/error.jsp</result>
 		</action>
 
         <action name="search" class="bookAction" method="search">
             <result name="success">/WEB-INF/index.jsp</result>
             <result name="input">/WEB-INF/index.jsp</result>
-            <result name="error" type="redirectAction">index</result>
+            <result name="error" type="redirect">/error.jsp</result>
         </action>
         
         <action name="bookinfojson" class="bookAction" method="infoJSON">
@@ -211,11 +218,6 @@
 				<param name="bufferSize">1024</param>
 			</result>
 			<result name="error" type="redirectAction">index</result>
-		</action>
-		
-		<action name="upload" class="bookstore.action.UploadTestAction" method="execute">
-			<result name="success">success.jsp</result>
-			<result name="error">error.jsp</result>
 		</action>
 
 

@@ -36,7 +36,7 @@
 					<label>Add User</label>
 					<br/>
 				</div>
-				<form action="/adduser" method="POST">
+				<form action="/adduser" method="POST" enctype="multipart/form-data">
 					<div class="panel-body">
 						<br/>
 						<div class="col-md-3"><input type="text" name="user.username" class="form-control" placeholder="User Name"/></div>
@@ -45,8 +45,9 @@
 						<div class="col-md-1"><s:checkbox name="user.admin" label="admin"/></div>
 					</div>
 					<div class="panel-body">
-						<div class="col-md-11"><input type="text" name="user.address" class="form-control" placeholder="Address" /></div>
-						<input type="submit" class="btn btn-primary show-detail" value="Add">
+						<div class="col-md-8"><input type="text" name="user.address" class="form-control" placeholder="Address" /></div>
+						<div class="col-md-1"><input type="file" name="user.image"></div>
+						<div class="pull-right col-md-1"><input type="submit" class="btn btn-primary show-detail" value="Add"></div>
 						<br/>
 					</div>
 				</form>

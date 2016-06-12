@@ -20,6 +20,7 @@ public interface UserService {
     public boolean logoutUser();
 
     public User self();
+    public boolean modifySelf(User user);
     public boolean register(User user);
 
 }
